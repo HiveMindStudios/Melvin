@@ -10,11 +10,12 @@
 #                                                                                                                       #
 #########################################################################################################################
 
+import discord
 from discord.ext import tasks, commands
 import re
 import random
 import numpy as np
-
+import whois
 
 class Utils(commands.Cog):
     def __init__(self, bot):
@@ -121,6 +122,87 @@ class Utils(commands.Cog):
         except:
             print(f"{ctx.author} attempted to roll with invalid roll function")
             await ctx.send(f"Unknown roll function")
+    @commands.command()
+    async def whois(self, ctx, domain):
+        if type(domain) != str:
+            await ctx.send(f"{domain} is not a string")    
+        else:
+            domainData = whois.whois(domain)
+            if domainData.domain_name == None:
+                await ctx.send(f"Domain: {domain}, doesn't exist")
+            else:
+                embed = discord.Embed(
+                    title=f"Domain info for {domain}",
+                    colour=discord.Colour.random()
+                )
+                noData = embed.add_field(
+                        name="Country",
+                        value="Unable to find data"
+                    )
+                embed.set_author(icon_url=ctx.author.avatar_url, name=str(ctx.author.name))
+                embed.add_field(
+                    name="Domain Name:",
+                    value=f"{domainData.domain_name} UTC",
+                    inline=False
+                )
+                embed.add_field(
+                    name="Updated:",
+                    value=f"{domainData.updated_date if type(domainData.updated_date) == str else domainData.updated_date[0]} UTC",
+                    inline=False
+                )
+                embed.add_field(
+                    name="Created:",
+                    value=f"{domainData.creation_date if type(domainData.creation_date) == str else domainData.creation_date[0]} UTC",
+                    inline=False
+                )
+                embed.add_field(
+                    name="Expires:",
+                    value=f"{domainData.expiration_date if type(domainData.expiration_date) == str else domainData.expiration_date[0]} UTC",
+                    inline=False
+                )
+                embed.add_field(
+                    name="Name Servers:",
+                    value=str(domainData.name_servers),
+                    inline=False
+                )
+                embed.add_field(
+                    name="Registrar:",
+                    value=domainData.registrar,
+                    inline=False
+                )
+                try:
+                    embed.add_field(
+                        name="Country:",
+                        value=domainData.country,
+                        inline=False
+                    )
+                except:
+                    noData
+                try:
+                    embed.add_field(
+                        name="City:",
+                        value=domainData.city,
+                        inline=False
+                    )
+                except:
+                    noData
+                try:
+                    embed.add_field(
+                        name="Adress:",
+                        value=domainData.adress,
+                        inline=False
+                    )
+                except:
+                    noData
+                try:
+                    embed.add_field(
+                        name="Org:",
+                        value=domainData.org,
+                        inline=False
+                    )
+                except:
+                    noData
+            await ctx.send(content=None, embed=embed)
 
 
 def setup(bot):
