@@ -17,6 +17,7 @@ import time
 class Meta(commands.Cog, name="Meta Commands"):
     def __init__(self, bot):
         self.bot = bot
+        self.time = time.perf_counter()
 
     @commands.command()
     async def ping(self, ctx):
@@ -84,6 +85,12 @@ class Meta(commands.Cog, name="Meta Commands"):
             await ctx.send(f"**`ERROR:`** {type(e).__name__} - {e}")
         else:
             await ctx.send("**`SUCCESS`**")
+
+    @commands.command()
+    async def uptime(self, ctx):
+        """Command which shows bot's uptime"""
+        await ctx.send(f"Bot's uptime is : {round(time.perf_counter() - this.time, 3)}s")
+
 
 
 def setup(bot):
