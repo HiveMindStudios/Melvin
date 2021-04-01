@@ -1,4 +1,7 @@
 # Melvin - a multipurpose discord bot
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Code style: black][codestyle-shield]][codestyle-url]
 [![Contributors][contributors-shield]][contributors-url]
@@ -114,3 +117,23 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [codelines-url]: https://www.gitmemory.com/VectorKappa/Melvin
 [ydaft-shield]: https://img.shields.io/badge/You%20didn't-Ask%20for%20this-lightgrey?style=for-the-badge
 [ydaft-url]: http://endless.horse/
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/dawidokox1"><img src="https://avatars.githubusercontent.com/u/16292679?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dawidokox1</b></sub></a><br /><a href="https://github.com/VectorKappa/Melvin/commits?author=dawidokox1" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
