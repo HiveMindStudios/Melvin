@@ -91,7 +91,7 @@ class Meta(commands.Cog, name="Meta Commands"):
         """Command which shows bot's uptime"""
         currentTime = round(time.perf_counter() - self.time, 0)
         await ctx.send(
-            f"Bot's uptime is : {math.floor(currentTime%60%60%24)}d {math.floor(currentTime%60%60)}h {math.floor(currentTime%60)}m {currentTime}s"
+            f"Bot's uptime is : {math.floor(currentTime/60/60/24)}d {math.floor(currentTime/60/60)}h {math.floor(currentTime/60)}m {currentTime}s"
         )
 
 
