@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import datetime
 
-#TODO: Rewrite as task
+# TODO: Rewrite as task
 class Logger(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -13,7 +13,8 @@ class Logger(commands.Cog):
             return
         else:
             print(
-                f"[{datetime.datetime.now()}]  {ctx.author} sent {ctx.content} on {ctx.channel}")
+                f"[{datetime.datetime.now()}]  {ctx.author} sent {ctx.content} on {ctx.channel}"
+            )
 
 
 def setup(bot):
