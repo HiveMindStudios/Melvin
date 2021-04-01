@@ -1,6 +1,9 @@
 # Melvin - a multipurpose discord bot
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Code style: black][codestyle-shield]][codestyle-url]
@@ -14,6 +17,7 @@
 [![You did't ask for this][ydaft-shield]][ydaft-url]
 
 <!-- PROJECT LOGO -->
+<!-- markdownlint-disable -->
 <br />
 <p align="center">
   <a href="https://github.com/VectorKappa/Melvin">
@@ -35,6 +39,7 @@
     <a href="https://github.com/VectorKappa/Melvin/issues">Request Feature</a>
   </p>
 </p>
+<!-- markdownlint-restore -->
 
 ## About The Project
 
