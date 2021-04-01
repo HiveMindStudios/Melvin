@@ -37,7 +37,7 @@ class Meta(commands.Cog, name="Meta Commands"):
 
     @commands.command()
     async def status(self, ctx, verbose_flag=False):
-        #TODO: Make it an embed
+        # TODO: Make it an embed
         await ctx.send(
             f"""```
         Bot latency: {int(self.bot.latency*1000)} ms \n
@@ -89,8 +89,9 @@ class Meta(commands.Cog, name="Meta Commands"):
     @commands.command()
     async def uptime(self, ctx):
         """Command which shows bot's uptime"""
-        await ctx.send(f"Bot's uptime is : {round(time.perf_counter() - this.time, 3)}s")
-
+        await ctx.send(
+            f"Bot's uptime is : {round(time.perf_counter() - self.time, 3)}s"
+        )
 
 
 def setup(bot):
