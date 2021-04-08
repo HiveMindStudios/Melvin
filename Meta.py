@@ -1,4 +1,4 @@
-##############################################################################################################
+#########################################################################################################################
 #                                                                                                                       #
 #                                                                                                                       #
 #                                                                                                                       #
@@ -8,11 +8,11 @@
 #                                                                                                                       #
 #                                                                                                                       #
 #                                                                                                                       #
-##############################################################################################################
+#########################################################################################################################
 
 from discord.ext import commands
 import time
-import datetime
+from datetime import timedelta
 
 
 class Meta(commands.Cog, name="Meta Commands"):
@@ -92,7 +92,7 @@ class Meta(commands.Cog, name="Meta Commands"):
         """Command which shows bot's uptime"""
         currentTime = round(time.perf_counter() - self.time, 0)
         await ctx.send(
-            f"Bot's uptime is : {str(datetime.timedelta(seconds=currentTime))}"
+            f"Bot's uptime is : {str(timedelta(seconds=currentTime))}"
         )
 
 
