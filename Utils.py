@@ -11,14 +11,42 @@
 #########################################################################################################################
 
 from discord.ext import tasks, commands
+import discord
 import re
 import random
 import numpy as np
+import urllib
+import datetime
 
 
 class Utils(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def qr(self, ctx, *, content):
+        """Generates a QR code
+
+        Args:
+            content (string): Text to be converted to an QR code
+        """
+        try:
+            embed = discord.Embed(
+                title="Here's your QR code!",
+                colour=random.randint(1, 16777215),
+                url=f"http://api.qrserver.com/v1/create-qr-code/?data={urllib.parse.quote(str(content))}&size=1000x1000&ecc=Q&margin=8",
+                timestamp=datetime.datetime.now(),
+            )
+            embed.set_image(
+                url=f"http://api.qrserver.com/v1/create-qr-code/?data={urllib.parse.quote(str(content))}&size=256x256&ecc=Q&margin=8"
+            )
+            embed.set_footer(
+                text="Melvin",
+                icon_url="https://cdn.discordapp.com/avatars/763866497683554305/c104103646e159b7b5921be963d9d663.png?size=128",
+            )
+            await ctx.send(embed=embed)
+        except:
+            await ctx.send("Error")
 
     @commands.command()
     async def roll(self, ctx, query="d20"):
