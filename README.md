@@ -19,7 +19,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/VectorKappa/Melvin">
-    <img src="images/logo.png" alt="Logo" width="128" height="128">
+    <img src="images/Melvin.png" alt="Logo" width="128" height="128">
   </a>
 
   <h2 align="center">Melvin</h2>
