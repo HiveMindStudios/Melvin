@@ -17,8 +17,8 @@ import random
 import numpy as np
 import urllib
 import datetime
-
-
+from json.decoder import JSONDecodeError
+import requests
 class Utils(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -148,8 +148,69 @@ class Utils(commands.Cog):
             # *                                ~Peter
         except:
             print(f"{ctx.author} attempted to roll with invalid roll function")
-            await ctx.send(f"Unknown roll function")
+            await ctx.send("Unknown roll function")
 
+
+    @commands.command()
+    async def metar(self, ctx, ICAO="ZKPY", verbosity="", measuringUnit="meters"):
+        """Shows weather for ICAO code
+        When passed with an ICAO airport code <https://airportcodes.io/>, returns current weather in METAR format and forecast in TAF format,
+        When -v is passed as verbosity flag, shows latitude, longitude, altitude, city and country code"""
+        embed = discord.Embed(
+            title="Weather Info For: " + ICAO.upper(),
+            colour=random.randint(1, 16777215),
+        )
+        try:
+            response = requests.get(f"https://wx.void.fo/all/{ICAO.upper()}").json()
+            embed.set_author(icon_url=ctx.author.avatar_url, name=str(ctx.author.name))
+            embed.add_field(name="Airport Name:", value=response["name"], inline=False)
+            try:
+                embed.add_field(
+                    name="Current Weather:", value=response["metar"], inline=False
+                )
+            except:
+                embed.add_field(
+                    name="Current Weather:", value="No METAR found!", inline=False
+                )
+            try:
+                embed.add_field(
+                    name="Weather Forecast:", value=response["taf"], inline=False
+                )
+            except:
+                embed.add_field(
+                    name="Weather Forecast:", value="No TAF found!", inline=False
+                )
+            if verbosity == "-v":
+                embed.add_field(name="City:", value=response["city"], inline=False)
+                embed.add_field(
+                    name="Country Code:", value=response["country_code"], inline=False
+                )
+                embed.add_field(
+                    name="Latitude:",
+                    value=str(response["latitude"]) + "°",
+                    inline=False,
+                )
+                embed.add_field(
+                    name="Longitude:",
+                    value=str(response["longitude"]) + "°",
+                    inline=False,
+                )
+                embed.add_field(
+                    name="Altitude:",
+                    value=str(response["altitude_feet"]) + "ft"
+                    if measuringUnit.lower() == "feet" or measuringUnit.lower() == "ft"
+                    else str(response["altitude_meters"]) + "m",
+                    inline=False,
+                )
+        except JSONDecodeError:
+            embed.add_field(name="Error encountered:", value="Enter a valid ICAO code")
+
+        await ctx.send(content=None, embed=embed)
+
+
+    @commands.command()
+    async def dice(self, ctx):
+        await ctx.send(f"{random.randint(1,6)}!")
 
 def setup(bot):
     bot.add_cog(Utils(bot))
