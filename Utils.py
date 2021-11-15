@@ -10,6 +10,7 @@
 #                                                                                                                       #
 #########################################################################################################################
 
+import os
 from discord.ext import tasks, commands
 import discord
 import re
@@ -155,18 +156,18 @@ class Utils(commands.Cog):
     async def metar(self, ctx, ICAO="ZKPY", verbosity="", measuringUnit="meters"):
         """Shows weather for ICAO code
         When passed with an ICAO airport code <https://airportcodes.io/>, returns current weather in METAR format and forecast in TAF format,
-        When -v is passed as verbosity flag, shows latitude, longitude, altitude, city and country code"""
+        When -v is passed as verbosity flag, shows latitude, longitude, elevation, city and country code"""
         embed = discord.Embed(
             title="Weather Info For: " + ICAO.upper(),
             colour=random.randint(1, 16777215),
         )
         try:
-            response = requests.get(f"https://wx.void.fo/all/{ICAO.upper()}").json()
+            response = requests.get(f"https://avwx.rest/api/metar/{ICAO.upper()}?options=info,summary&airport=true&reporting=true&format=json&onfail=cache", headers={"Authorization": os.getenv("ICAO_API_KEY")}).json()
             embed.set_author(icon_url=ctx.author.avatar_url, name=str(ctx.author.name))
-            embed.add_field(name="Airport Name:", value=response["name"], inline=False)
+            embed.add_field(name="Airport Name:", value=response["info"]["name"], inline=False)
             try:
                 embed.add_field(
-                    name="Current Weather:", value=response["metar"], inline=False
+                    name="Current Weather:", value=response["sanitized"], inline=False
                 )
             except:
                 embed.add_field(
@@ -181,27 +182,32 @@ class Utils(commands.Cog):
                     name="Weather Forecast:", value="No TAF found!", inline=False
                 )
             if verbosity == "-v":
-                embed.add_field(name="City:", value=response["city"], inline=False)
+                embed.add_field(name="City:", value=response["info"]["city"], inline=False)
                 embed.add_field(
-                    name="Country Code:", value=response["country_code"], inline=False
+                    name="Country Code:", value=response["info"]["country"], inline=False
+                )
+                embed.add_field(
+                    name="State Code:", value=response["info"]["state"], inline=False
                 )
                 embed.add_field(
                     name="Latitude:",
-                    value=str(response["latitude"]) + "°",
-                    inline=False,
+                    value=str(response["info"]["latitude"]) + "°",
+                    inline=False
                 )
                 embed.add_field(
                     name="Longitude:",
-                    value=str(response["longitude"]) + "°",
-                    inline=False,
+                    value=str(response["info"]["longitude"]) + "°",
+                    inline=False
                 )
                 embed.add_field(
-                    name="Altitude:",
-                    value=str(response["altitude_feet"]) + "ft"
+                    name="Elevation:",
+                    value=str(response["info"]["elevation_ft"]) + "ft"
                     if measuringUnit.lower() == "feet" or measuringUnit.lower() == "ft"
-                    else str(response["altitude_meters"]) + "m",
-                    inline=False,
+                    else str(response["info"]["elevation_m"]) + "m",
+                    inline=False
                 )
+            if verbosity == "-s":
+                embed.add_field(name="Explanation:", value=response["summary"], inline=False)
         except JSONDecodeError:
             embed.add_field(name="Error encountered:", value="Enter a valid ICAO code")
 
