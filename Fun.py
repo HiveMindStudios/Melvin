@@ -117,5 +117,5 @@ class Fun(commands.Cog):
             user = int(target.strip("<@!>"))
         await self.bot.get_guild(ctx.guild.id).get_member(user).move_to(None)
 
-def setup(bot):
-    bot.add_cog(Fun(bot))
+async def setup(bot):
+    await bot.add_cog(Fun(bot))

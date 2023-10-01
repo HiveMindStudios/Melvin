@@ -12,10 +12,10 @@
 
 import asyncio
 import discord
-import youtube_dl
+import yt_dlp
 from discord.ext import tasks, commands
 
-youtube_dl.utils.bug_reports_message = lambda: ""
+yt_dlp.utils.bug_reports_message = lambda: ""
 
 ytdl_opts = {
     "format": "bestaudio/best",
@@ -33,7 +33,7 @@ ytdl_opts = {
 
 ffmpeg_opts = {"options": "-vn"}
 
-ytdl = youtube_dl.YoutubeDL(ytdl_opts)
+ytdl = yt_dlp.YoutubeDL(ytdl_opts)
 
 
 class YTDLSource(discord.PCMVolumeTransformer):
@@ -127,5 +127,5 @@ class Music(commands.Cog):
             ctx.voice_client.stop()
 
 
-def setup(bot):
-    bot.add_cog(Music(bot))
+async def setup(bot):
+    await bot.add_cog(Music(bot))

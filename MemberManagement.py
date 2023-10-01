@@ -44,5 +44,5 @@ class MembersCog(commands.Cog, name="Member Commands"):
         await ctx.send(content=None, embed=embed)
 
 
-def setup(bot):
-    bot.add_cog(MembersCog(bot))
+async def setup(bot):
+    await bot.add_cog(MembersCog(bot))

@@ -54,7 +54,7 @@ class Meta(commands.Cog, name="Meta Commands"):
         Remember to use dot path. e.g: cogs.owner"""
 
         try:
-            self.bot.load_extension(cog)
+            await self.bot.load_extension(cog)
         except Exception as e:
             await ctx.send(f"**`ERROR:`** {type(e).__name__} - {e}")
         else:
@@ -96,5 +96,5 @@ class Meta(commands.Cog, name="Meta Commands"):
         )
 
 
-def setup(bot):
-    bot.add_cog(Meta(bot))
+async def setup(bot):
+    await bot.add_cog(Meta(bot))

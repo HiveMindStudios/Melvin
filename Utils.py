@@ -218,5 +218,5 @@ class Utils(commands.Cog):
     async def dice(self, ctx):
         await ctx.send(f"{random.randint(1,6)}!")
 
-def setup(bot):
-    bot.add_cog(Utils(bot))
+async def setup(bot):
+    await bot.add_cog(Utils(bot))

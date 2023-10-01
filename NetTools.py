@@ -53,5 +53,5 @@ class NetTools(commands.Cog):
             await ctx.send("Address does not exist, or is invalid.")
 
 
-def setup(bot):
-    bot.add_cog(NetTools(bot))
+async def setup(bot):
+    await bot.add_cog(NetTools(bot))
